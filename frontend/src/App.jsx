@@ -6,17 +6,14 @@ import './App.css'
 function App() {
   const [task, setTask] = useState('');
   const [todos, setTodos] = useState([]);
+  let [count,setCount]=useState(0)
   useEffect(()=>{
     fetchTodo();
-  },[])
+  },[count])
   const fetchTodo=async()=>{
     const res=await fetch("http://localhost:3000/api/gettodos");
-    console.log(res);
-    
     const data=await res.json();
-    console.log(data);
-    
-    // setTodos([...data])
+    setTodos([...data])
   }
   // Handle input change
   const handleInputChange = (e) => {
@@ -27,12 +24,45 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (task.trim()) {
-
-      setTodos([...todos, task]);
+      fetch("http://localhost:3000/api/addtodo",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({task:task})
+    }).then((res)=>{
+        console.log(res);
+        if(res.status==201){
+            setCount(count+=1)
+        }else if(res.status==400){
+          alert("error")
+        }
+        else{
+            alert("error")
+        }
+        
+    }).catch((error)=>{
+        console.log(error);
+        
+    });
       setTask(''); // Clear the input field after submission
     }
   };
-
+  const handleDelete = (index) => {
+    fetch(`http://localhost:3000/api/deletetodo/${index}`,{
+      method:"DELETE",
+          headers:{"Content-Type":"application/json"}
+    }).then((res)=>{
+          console.log(res);
+          if(res.status==201){
+              alert("Deleted")
+              setCount(count+=1);
+          }else{
+              alert("error");
+          }
+      }). catch ((error)=>{
+          console.log(error);
+          
+      })
+  };
   return (
     <div className="todo-app">
       <h1 className="todo-header">Todo List</h1>
@@ -44,7 +74,11 @@ function App() {
       </form>
       <ul className="todo-list">
         {todos.map((todo, index) => (
-          <li key={index} className="todo-item">{todo}</li>
+          <li key={index} className="todo-item">{todo.task}
+          <button className="todo-delete-btn" onClick={() => handleDelete(todo._id)}>
+              Delete
+            </button>
+          </li>
         ))}
       </ul>
     </div>
