@@ -17,5 +17,6 @@
     "nodejs": "^0.0.0",
     "nodemon": "^3.1.7"
   },
+  "devDependencies": {},
   "description": ""
 }

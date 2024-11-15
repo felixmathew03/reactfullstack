@@ -6,7 +6,6 @@ import cors from 'cors'
 
 env.config()
 const app=express();
-// app.use(express.static("frontend"))
 app.use(cors());
 app.use(express.json({limit:'50Mb'}))
 app.use("/api",router)

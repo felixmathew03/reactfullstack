@@ -6,12 +6,12 @@ export async function addTodo(req,res){
         const{...todo}=req.body;
         
         const data=await todoSchema.create({...todo});
-        console.log(data);
+       
         
-        return res.status(201).send({msg:data})
+        return res.status(201).send({msg:"successfuly added"})
         
     }catch(error){
-        res.status(404).send({msg:error})
+        res.status(404).send({msg:"error"})
     }
 }
 
@@ -23,7 +23,7 @@ export async function getTodos(req,res) {
         res.status(200).send(todos)
         
     } catch (error) {
-        res.status(404).send({msg:error})
+        res.status(404).send({msg:"error"})
     }
 }
 
