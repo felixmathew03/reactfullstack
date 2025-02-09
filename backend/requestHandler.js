@@ -28,3 +28,14 @@ export async function deleteTodo(req,res) {
         res.status(404).send(error)
     }   
 }
+
+export async function editTodo(req,res) {
+    try {
+         const {_id}=req.params;
+         const {newTask}=req.body;
+        const data=await todoSchema.updateOne({_id},{$set:{task:newTask}})
+        return res.status(201).send({msg:"Updated"});
+    } catch (error) {
+        res.status(404).send({msg:"error"})
+    }   
+}

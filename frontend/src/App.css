@@ -68,9 +68,11 @@ body {
 .todo-list {
   list-style: none;
   padding: 0;
+  
 }
 
 .todo-item {
+  width: 350px;
   padding: 10px;
   border-bottom: 1px solid #ddd;
   font-size: 1.1rem;
@@ -79,7 +81,16 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
+.input{
+  height: 30px;
+  padding: 0 5px  ;
+  border: 1px solid rgb(3, 3, 88);
+  border-radius: 4px;
+  outline: none;
+  &:disabled{
+    border: none;
+  }
+}
 /* Delete button styling */
 .todo-delete-btn {
   background-color: #e74c3c;
@@ -94,6 +105,22 @@ body {
 
 .todo-delete-btn:hover {
   background-color: #c0392b;
+}
+
+/* Edit button styling */
+.todo-edit-btn {
+  background-color: #3c6ae7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.todo-edit-btn:hover {
+  background-color: #2357e6;
 }
 
 /* Responsiveness */
